@@ -21,6 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
 
+    @Override
     protected  void configure(AuthenticationManagerBuilder auth) throws  Exception{
         // Set your configuration on the auth object
         auth.jdbcAuthentication()

@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class SubjectList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long subjectListId;
     private String English;
     private String Mathematics;

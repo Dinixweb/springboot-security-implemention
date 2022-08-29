@@ -16,6 +16,7 @@ import java.util.List;
 public class Results {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long resultId;
     private String term;
     private LocalDate academicYear;

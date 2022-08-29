@@ -1,13 +1,7 @@
 package io.dinixweb.Springboot.Security.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.hibernate.Hibernate;
-
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -20,6 +14,7 @@ import java.util.List;
 public class Students {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long studentId;
     private String firstName;
     private String lastName;

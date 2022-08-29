@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class ParentGuardian {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long parentId;
     private String firstName;
     private String lastName;

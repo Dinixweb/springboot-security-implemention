@@ -1,13 +1,8 @@
 package io.dinixweb.Springboot.Security.model;
 
 import lombok.*;
-import org.hibernate.Hibernate;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.util.Objects;
 
 @Entity
 @NoArgsConstructor
@@ -15,10 +10,10 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Subjects {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long SubjectId;
     private String subjectName;
     private String subjectTeacher;

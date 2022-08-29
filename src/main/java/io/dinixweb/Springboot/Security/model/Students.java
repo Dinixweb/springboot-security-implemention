@@ -1,5 +1,6 @@
 package io.dinixweb.Springboot.Security.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Students {
     private String grade;
     private String email;
     private String username;
-    //@JsonProperty(JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 

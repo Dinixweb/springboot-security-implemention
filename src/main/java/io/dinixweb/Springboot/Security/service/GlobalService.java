@@ -2,6 +2,7 @@ package io.dinixweb.Springboot.Security.service;
 
 import io.dinixweb.Springboot.Security.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +24,7 @@ public class GlobalService {
     @Autowired
     private final SubjectListRepository subjectListRepository;
 
-//    @Autowired
-//    BCryptPasswordEncoder bCryptPasswordEncoder;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public GlobalService(StudentRepository studentRepository, ResultRepository resultRepository, ParentRepository parentRepository, SubjectRepository subjectRepository, SubjectListRepository subjectListRepository) {
         this.studentRepository = studentRepository;

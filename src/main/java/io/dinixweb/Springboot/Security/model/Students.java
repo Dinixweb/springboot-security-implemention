@@ -19,6 +19,7 @@ public class Students {
     private String lastName;
     private String grade;
     private String email;
+    private String username;
     //@JsonProperty(JsonProperty.Access.WRITE_ONLY)
     private String password;
 

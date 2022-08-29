@@ -7,7 +7,6 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,14 +23,14 @@ public class Students {
     private String password;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
-    private List<Subjects> subjectList = new java.util.ArrayList<>();
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
-    private List<ParentGuardian> parentGuardians = new java.util.ArrayList<>();
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
-    private List<Results>resultsList = new java.util.ArrayList<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
+//    private List<Subjects> subjectList;
+//
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
+//    private List<ParentGuardian> parentGuardians;
+//
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
+//    private List<Results>resultsList;
 
 
 }

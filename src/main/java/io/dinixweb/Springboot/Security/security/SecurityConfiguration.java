@@ -1,5 +1,6 @@
 package io.dinixweb.Springboot.Security.security;
 
+import io.dinixweb.Springboot.Security.service.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,15 +17,15 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+
     @Autowired
-    DataSource dataSource;
+    AuthUserService authUserService;
 
 
     @Override
     protected  void configure(AuthenticationManagerBuilder auth) throws  Exception{
         // Set your configuration on the auth object
-        auth.jdbcAuthentication()
-                .dataSource(dataSource);
+        auth.userDetailsService(authUserService);
 
     }
 

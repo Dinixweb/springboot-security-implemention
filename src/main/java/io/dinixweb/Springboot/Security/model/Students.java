@@ -1,16 +1,19 @@
 package io.dinixweb.Springboot.Security.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import javax.persistence.*;
-import java.util.List;
+import org.hibernate.Hibernate;
 
-@Getter
-@Setter
-@ToString
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Objects;
+
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Students {
 
     @Id
@@ -21,17 +24,21 @@ public class Students {
     private String grade;
     private String email;
     private String username;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+   // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    private boolean accountNonLocked;
 
 
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
+//    @OneToMany(mappedBy = "students")
+//    @LazyCollection(LazyCollectionOption.FALSE)
 //    private List<Subjects> subjectList;
 //
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
+//    @OneToMany( mappedBy = "students")
+//    @LazyCollection(LazyCollectionOption.FALSE)
 //    private List<ParentGuardian> parentGuardians;
 //
-//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
+//    @OneToMany(mappedBy = "students")
+//    @LazyCollection(LazyCollectionOption.FALSE)
 //    private List<Results>resultsList;
 
 

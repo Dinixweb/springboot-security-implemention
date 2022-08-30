@@ -1,6 +1,8 @@
 package io.dinixweb.Springboot.Security.model;
 
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,7 +24,8 @@ public class Results {
     private LocalDate academicYear;
     private String grade;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "results")
+    @OneToMany( mappedBy = "results")
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<SubjectList> subjectListList = new java.util.ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "students_student_id")

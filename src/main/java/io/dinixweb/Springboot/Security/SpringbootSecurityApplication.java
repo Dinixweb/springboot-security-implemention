@@ -28,13 +28,7 @@ public class SpringbootSecurityApplication implements CommandLineRunner {
 		students.setEmail("denis@gmail.com");
 		students.setUsername("Dinix");
 		students.setPassword(encode.encode("Nigeria"));
-
-		students.setFirstName("Mike");
-		students.setLastName("Hillary");
-		students.setGrade("Grade 11");
-		students.setEmail("hillary_mike@gmail.com");
-		students.setUsername("hillary");
-		students.setPassword(encode.encode("Nigeria"));
+		students.setAccountNonLocked(false);
 
 		studentRepository.save(students);
 	}

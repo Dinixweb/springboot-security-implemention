@@ -5,6 +5,8 @@ import io.dinixweb.Springboot.Security.service.AuthUserService;
 import io.dinixweb.Springboot.Security.utils.JwtUtility;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +30,6 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     AuthUserService authUserService;
 
-    @Autowired
 
 
     @Override
@@ -43,9 +44,9 @@ public class JwtFilter extends OncePerRequestFilter {
             try{
                 username = jwtUtility.getUsernameFromToken(jwtToken);
             }catch(IllegalArgumentException illegalArgumentException){
-                new TokenExpirationResponse("You have entered an invalid token");
+                new ResponseEntity<>(new TokenExpirationResponse("You have entered an invalid token"), HttpStatus.BAD_REQUEST).hasBody();
             }catch(ExpiredJwtException expiredJwtException){
-                new TokenExpirationResponse("Your token has expired");
+                new ResponseEntity<>(new TokenExpirationResponse("Your token has expired"), HttpStatus.BAD_REQUEST).hasBody();
             }
         }else{
             new TokenExpirationResponse("Token does not begin with Bearer String");

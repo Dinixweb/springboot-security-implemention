@@ -2,11 +2,11 @@ package io.dinixweb.Springboot.Security.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -29,17 +29,17 @@ public class Students {
     private boolean accountNonLocked;
 
 
-//    @OneToMany(mappedBy = "students")
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    private List<Subjects> subjectList;
-//
-//    @OneToMany( mappedBy = "students")
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    private List<ParentGuardian> parentGuardians;
-//
-//    @OneToMany(mappedBy = "students")
-//    @LazyCollection(LazyCollectionOption.FALSE)
-//    private List<Results>resultsList;
+    @OneToMany(mappedBy = "students")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Subjects> subjectList;
+
+    @OneToMany( mappedBy = "students")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<ParentGuardian> parentGuardians;
+
+    @OneToMany(mappedBy = "students")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Results>resultsList;
 
 
 }

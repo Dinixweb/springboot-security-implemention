@@ -21,16 +21,16 @@ public class SpringbootSecurityApplication implements CommandLineRunner {
 	BCryptPasswordEncoder encode   = new BCryptPasswordEncoder();
 
 	public void run(String... args)throws Exception{
-		Students students = new Students();
-		students.setFirstName("Dennis");
-		students.setLastName("Shaba");
-		students.setGrade("Grade 12");
-		students.setEmail("denis@gmail.com");
-		students.setUsername("Dinix");
-		students.setPassword(encode.encode("Nigeria"));
-		students.setAccountNonLocked(false);
 
-		studentRepository.save(students);
+//		Students students = new Students();
+//		students.setFirstName("Dennis");
+//		students.setLastName("Shaba");
+//		students.setGrade("Grade 12");
+//		students.setEmail("denis@gmail.com");
+//		students.setUsername("Dinix");
+//		students.setPassword(encode.encode("Nigeria"));
+//		students.setAccountNonLocked(false);
+//		studentRepository.save(students);
 	}
 
 

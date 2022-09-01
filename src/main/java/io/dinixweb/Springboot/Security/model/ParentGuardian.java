@@ -20,9 +20,10 @@ public class ParentGuardian {
     private String lastName;
     private String email;
     private String phone;
-    private long studentId;
+
+
     @ManyToOne
-    @JoinColumn(name = "students_student_id")
+    @JoinColumn(name = "students_id")
     private Students students;
 
 

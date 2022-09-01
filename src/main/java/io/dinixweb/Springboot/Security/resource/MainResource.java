@@ -4,6 +4,7 @@ import io.dinixweb.Springboot.Security.model.Students;
 import io.dinixweb.Springboot.Security.response.JwtResponse;
 import io.dinixweb.Springboot.Security.response.LoginResponse;
 import io.dinixweb.Springboot.Security.service.AuthUserService;
+import io.dinixweb.Springboot.Security.service.GlobalService;
 import io.dinixweb.Springboot.Security.utils.JwtUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class MainResource {
 
@@ -28,6 +31,13 @@ public class MainResource {
 
     @Autowired
     JwtUtility jwtUtility;
+
+    private final GlobalService globalService;
+
+    public MainResource(AuthenticationManager authenticationManager, GlobalService globalService) {
+        this.authenticationManager = authenticationManager;
+        this.globalService = globalService;
+    }
 
     @GetMapping(value = "/")
     public String home(){
@@ -53,8 +63,8 @@ public class MainResource {
 
     }
     @GetMapping(value = "/studentList", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getAllStudents(){
-        return "Welcome to home user";
+    public List<Students> getAllStudents(){
+        return globalService.getALlStudents();
     }
 
     @GetMapping(value = "/studentList/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)

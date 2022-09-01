@@ -1,7 +1,9 @@
 package io.dinixweb.Springboot.Security.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -13,7 +15,9 @@ import java.util.Objects;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class Students {
 
     @Id
@@ -24,21 +28,18 @@ public class Students {
     private String grade;
     private String email;
     private String username;
-   // @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private boolean accountNonLocked;
 
 
     @OneToMany(mappedBy = "students")
-    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Subjects> subjectList;
 
-    @OneToMany( mappedBy = "students")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
     private List<ParentGuardian> parentGuardians;
 
     @OneToMany(mappedBy = "students")
-    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Results>resultsList;
 
 

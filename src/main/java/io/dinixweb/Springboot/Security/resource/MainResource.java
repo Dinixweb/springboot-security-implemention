@@ -47,7 +47,6 @@ public class MainResource {
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> studentLogin(@RequestBody Students students){
         try{
-            System.out.println("Data Level 1: "+students.getUsername() +" "+ students.getPassword());
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(students.getUsername(), students.getPassword()));
         }catch(BadCredentialsException badCredentialsException){
             ResponseEntity.ok(new LoginResponse(false, "invalid login details"));

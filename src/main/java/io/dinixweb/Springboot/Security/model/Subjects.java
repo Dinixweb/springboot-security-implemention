@@ -18,9 +18,4 @@ public class Subjects {
     private String subjectName;
     private String subjectTeacher;
     private long studentCount;
-    private long studentId;
-    @ManyToOne
-    @JoinColumn(name = "students_student_id", updatable = false, insertable = false)
-    private Students students;
-
 }

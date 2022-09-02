@@ -41,5 +41,10 @@ public class GlobalService {
         return studentRepository.findAll();
     }
 
+    void addNewStudent(Students students){
+
+        studentRepository.save(students);
+    }
+
 
 }

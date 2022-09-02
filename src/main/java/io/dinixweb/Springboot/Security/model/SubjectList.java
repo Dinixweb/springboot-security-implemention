@@ -23,7 +23,5 @@ public class SubjectList {
     private String Statistics;
     private String ComputerEdu;
     private long resultId;
-    @ManyToOne
-    @JoinColumn(name = "results_ID")
-    private Results results;
+
 }

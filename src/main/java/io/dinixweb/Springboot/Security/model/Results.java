@@ -1,8 +1,6 @@
 package io.dinixweb.Springboot.Security.model;
 
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Results {
 
     @Id
@@ -24,11 +21,9 @@ public class Results {
     private LocalDate academicYear;
     private String grade;
 
-    @OneToMany( mappedBy = "results")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<SubjectList> subjectListList = new java.util.ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name = "students_student_id")
-    private Students students;
+    @OneToMany
+    @JoinColumn(name = "resultId")
+    @OrderBy
+    private List<SubjectList> subjectListList;
 
 }

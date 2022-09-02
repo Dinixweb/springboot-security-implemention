@@ -23,11 +23,11 @@ public class SpringbootSecurityApplication implements CommandLineRunner {
 	public void run(String... args)throws Exception{
 
 //		Students students = new Students();
-//		students.setFirstName("Dennis");
-//		students.setLastName("Shaba");
+//		students.setFirstName("James");
+//		students.setLastName("Gate");
 //		students.setGrade("Grade 12");
-//		students.setEmail("denis@gmail.com");
-//		students.setUsername("Dinix");
+//		students.setEmail("james@gmail.com");
+//		students.setUsername("james");
 //		students.setPassword(encode.encode("Nigeria"));
 //		students.setAccountNonLocked(false);
 //		studentRepository.save(students);

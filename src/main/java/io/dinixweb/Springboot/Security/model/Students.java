@@ -37,11 +37,13 @@ public class Students implements Serializable {
     @OneToMany(mappedBy = "students")
     private List<Subjects> subjectList;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "student_id")
-    private ParentGuardian parentGuardians;
+    private List<ParentGuardian> parentGuardians;
 
-    @OneToMany(mappedBy = "students")
+    @OneToMany
+    @JoinColumn(name = "student_id")
+    @OrderBy
     private List<Results>resultsList;
 
 

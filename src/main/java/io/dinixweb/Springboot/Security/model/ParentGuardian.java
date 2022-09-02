@@ -1,8 +1,13 @@
 package io.dinixweb.Springboot.Security.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Entity
 @Table(name = "parent_guardian")
@@ -10,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
+
 public class ParentGuardian {
 
     @Id
@@ -20,11 +25,6 @@ public class ParentGuardian {
     private String lastName;
     private String email;
     private String phone;
-
-
-    @ManyToOne
-    @JoinColumn(name = "students_id")
-    private Students students;
-
+    private String studentId;
 
 }

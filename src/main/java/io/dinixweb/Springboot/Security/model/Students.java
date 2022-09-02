@@ -8,6 +8,8 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,8 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-public class Students {
+public class Students implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,8 +37,9 @@ public class Students {
     @OneToMany(mappedBy = "students")
     private List<Subjects> subjectList;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "students")
-    private List<ParentGuardian> parentGuardians;
+    @OneToOne
+    @JoinColumn(name = "student_id")
+    private ParentGuardian parentGuardians;
 
     @OneToMany(mappedBy = "students")
     private List<Results>resultsList;

@@ -20,7 +20,7 @@ public class Subjects {
     private long studentCount;
     private long studentId;
     @ManyToOne
-    @JoinColumn(name = "students_student_id")
+    @JoinColumn(name = "students_student_id", updatable = false, insertable = false)
     private Students students;
 
 }

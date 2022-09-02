@@ -49,10 +49,11 @@ public class MainResource {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(students.getUsername(), students.getPassword()));
         }catch(BadCredentialsException badCredentialsException){
-            ResponseEntity.ok(new LoginResponse(false, "invalid login details"));
+            return ResponseEntity.ok(new LoginResponse(false, "invalid login details"));
         }catch (Exception e){
-            ResponseEntity.ok(new LoginResponse(false, "internal service error"));
+            return ResponseEntity.ok(new LoginResponse(false, "user not found"));
         }
+
         final UserDetails userDetails = authUserService.loadUserByUsername(students.getUsername());
 
         final String token = jwtUtility.generateToken(userDetails);

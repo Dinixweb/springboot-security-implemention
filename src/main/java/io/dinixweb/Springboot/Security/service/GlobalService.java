@@ -42,7 +42,6 @@ public class GlobalService {
     }
 
     void addNewStudent(Students students){
-
         studentRepository.save(students);
     }
 

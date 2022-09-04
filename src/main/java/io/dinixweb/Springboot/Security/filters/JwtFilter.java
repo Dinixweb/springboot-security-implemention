@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -38,18 +39,19 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String username = null;
         String jwtToken = null;
-
+        TokenExpirationResponse tokenExpirationResponse= new TokenExpirationResponse("token has already expired");
         if(requestTokenHeader !=null && requestTokenHeader.startsWith("Bearer ")){
+            System.out.println("Inside");
             jwtToken = requestTokenHeader.substring(7);
             try{
                 username = jwtUtility.getUsernameFromToken(jwtToken);
             }catch(IllegalArgumentException illegalArgumentException){
-                new ResponseEntity<>(new TokenExpirationResponse("You have entered an invalid token"), HttpStatus.BAD_REQUEST).hasBody();
+                new ResponseEntity<>(new TokenExpirationResponse("You have entered an invalid token"), HttpStatus.BAD_REQUEST);
             }catch(ExpiredJwtException expiredJwtException){
-                new ResponseEntity<>(new TokenExpirationResponse("Your token has expired"), HttpStatus.BAD_REQUEST).hasBody();
+                new ResponseEntity<>(new TokenExpirationResponse("Your token has expired"), HttpStatus.BAD_REQUEST);
             }
         }else{
-            new TokenExpirationResponse("Token does not begin with Bearer String");
+            response.sendError(404,"Token does not begin with Bearer String");
         }
 
 
@@ -58,12 +60,13 @@ public class JwtFilter extends OncePerRequestFilter {
             UserDetails userDetails = this.authUserService.loadUserByUsername(username);
 
             if (jwtUtility.validateToken(jwtToken, userDetails)) {
-
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }else{
+                response.sendError(404, tokenExpirationResponse.getMessage());
             }
         }
         filterChain.doFilter(request, response);

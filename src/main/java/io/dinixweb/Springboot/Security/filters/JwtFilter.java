@@ -1,12 +1,10 @@
 package io.dinixweb.Springboot.Security.filters;
 
-import io.dinixweb.Springboot.Security.response.TokenExpirationResponse;
+
 import io.dinixweb.Springboot.Security.service.AuthUserService;
 import io.dinixweb.Springboot.Security.utils.JwtUtility;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +17,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -34,41 +31,48 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+            throws ServletException, IOException {
+
         final String requestTokenHeader = request.getHeader("Authorization");
 
         String username = null;
         String jwtToken = null;
-        TokenExpirationResponse tokenExpirationResponse= new TokenExpirationResponse("token has already expired");
-        if(requestTokenHeader !=null && requestTokenHeader.startsWith("Bearer ")){
-            System.out.println("Inside");
+        // JWT Token is in the form "Bearer token". Remove Bearer word and get
+        // only the Token
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
             jwtToken = requestTokenHeader.substring(7);
-            try{
+            try {
                 username = jwtUtility.getUsernameFromToken(jwtToken);
-            }catch(IllegalArgumentException illegalArgumentException){
-                new ResponseEntity<>(new TokenExpirationResponse("You have entered an invalid token"), HttpStatus.BAD_REQUEST);
-            }catch(ExpiredJwtException expiredJwtException){
-                new ResponseEntity<>(new TokenExpirationResponse("Your token has expired"), HttpStatus.BAD_REQUEST);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Unable to get JWT Token");
+            } catch (ExpiredJwtException e) {
+                System.out.println("JWT Token has expired");
             }
-        }else{
-            response.sendError(404,"Token does not begin with Bearer String");
+        } else {
+            logger.warn("JWT Token does not begin with Bearer String");
         }
 
-
+        // Once we get the token validate it.
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             UserDetails userDetails = this.authUserService.loadUserByUsername(username);
 
+            // if token is valid configure Spring Security to manually set
+            // authentication
             if (jwtUtility.validateToken(jwtToken, userDetails)) {
+
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                // After setting the Authentication in the context, we specify
+                // that the current user is authenticated. So it passes the
+                // Spring Security Configurations successfully.
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            }else{
-                response.sendError(404, tokenExpirationResponse.getMessage());
             }
         }
-        filterChain.doFilter(request, response);
+        chain.doFilter(request, response);
     }
+
 }

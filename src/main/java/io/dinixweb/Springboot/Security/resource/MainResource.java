@@ -3,6 +3,7 @@ package io.dinixweb.Springboot.Security.resource;
 import io.dinixweb.Springboot.Security.model.Students;
 import io.dinixweb.Springboot.Security.response.JwtResponse;
 import io.dinixweb.Springboot.Security.response.LoginResponse;
+
 import io.dinixweb.Springboot.Security.service.AuthUserService;
 import io.dinixweb.Springboot.Security.service.GlobalService;
 import io.dinixweb.Springboot.Security.utils.JwtUtility;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,14 +55,9 @@ public class MainResource {
         }catch (Exception e){
             return ResponseEntity.ok(new LoginResponse(false, "user not found"));
         }
-
         final UserDetails userDetails = authUserService.loadUserByUsername(students.getUsername());
-
         final String token = jwtUtility.generateToken(userDetails);
-
         return ResponseEntity.ok(new JwtResponse(token));
-
-
     }
     @GetMapping(value = "/studentList", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Students> getAllStudents(){

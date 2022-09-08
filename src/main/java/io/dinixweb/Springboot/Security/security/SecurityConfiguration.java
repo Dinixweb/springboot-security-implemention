@@ -1,7 +1,7 @@
 package io.dinixweb.Springboot.Security.security;
 
+
 import io.dinixweb.Springboot.Security.filters.JwtFilter;
-import io.dinixweb.Springboot.Security.middleware.JwtEntryPoint;
 import io.dinixweb.Springboot.Security.service.AuthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     AuthUserService authUserService;
-
-    @Autowired
-    JwtEntryPoint jwtEntryPoint;
 
     @Autowired
     JwtFilter jwtFilter;

@@ -4,9 +4,11 @@ import io.dinixweb.Springboot.Security.model.Students;
 import io.dinixweb.Springboot.Security.response.JwtResponse;
 import io.dinixweb.Springboot.Security.response.LoginResponse;
 
+import io.dinixweb.Springboot.Security.response.TokenExpirationResponse;
 import io.dinixweb.Springboot.Security.service.AuthUserService;
 import io.dinixweb.Springboot.Security.service.GlobalService;
 import io.dinixweb.Springboot.Security.utils.JwtUtility;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +54,7 @@ public class MainResource {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(students.getUsername(), students.getPassword()));
         }catch(BadCredentialsException badCredentialsException){
             return ResponseEntity.ok(new LoginResponse(false, "invalid login details"));
-        }catch (Exception e){
+        } catch (Exception e){
             return ResponseEntity.ok(new LoginResponse(false, "user not found"));
         }
         final UserDetails userDetails = authUserService.loadUserByUsername(students.getUsername());

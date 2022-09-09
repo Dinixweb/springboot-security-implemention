@@ -50,13 +50,7 @@ public class MainResource {
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> studentLogin(@RequestBody Students students){
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(students.getUsername(), students.getPassword()));
-        }catch(BadCredentialsException badCredentialsException){
-            return ResponseEntity.ok(new LoginResponse(false, "invalid login details"));
-        } catch (Exception e){
-            return ResponseEntity.ok(new LoginResponse(false, "user not found"));
-        }
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(students.getUsername(), students.getPassword()));
         final UserDetails userDetails = authUserService.loadUserByUsername(students.getUsername());
         final String token = jwtUtility.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));

@@ -26,7 +26,7 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(SignatureException.class)
      static ResponseEntity<?> signatureException(){
-        return new  ResponseEntity<>(new TokenExpirationResponse("Token does not match"), HttpStatus.LOCKED);
+        return new  ResponseEntity<>(new TokenExpirationResponse("JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted."), HttpStatus.LOCKED);
     }
 
 

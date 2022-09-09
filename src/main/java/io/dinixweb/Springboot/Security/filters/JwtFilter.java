@@ -52,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }catch(IllegalArgumentException e){
                 logger.warn("unable to get JWT Token");
             }catch(ExpiredJwtException | SignatureException e){
-                logger.warn("JWT Token has expired or cannot validate token");
+                logger.warn("JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.");
             }
         }else{
             logger.warn("JWT Token does not begin with Bearer String");
